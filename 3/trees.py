@@ -1,6 +1,6 @@
 import operator
 from math import log
-
+import treePlot
 
 # 计算香农熵
 def calcShannonEnt(dataSet):
@@ -118,3 +118,14 @@ def createDataSet():
                [0, 1, 'no']]
     labels = ['no surfacing', 'flippers']
     return dataSet, labels
+
+
+def example():
+    fr = open('/home/jsq211/Desktop/python/pythonPractice/practiceForMachineLearning/3/lenses.txt')
+    lenses = [inst.strip().split('\t') for inst in fr.readlines()]
+    lensesLabels = ['ages', 'prescript', 'astigmatic', 'tearRate']
+    lensesTree = createTree(lenses, lensesLabels)
+    return lensesTree
+
+lensesTree = example()
+treePlot.createPlot(lensesTree)
