@@ -2,6 +2,7 @@ import operator
 from math import log
 import treePlot
 
+
 # 计算香农熵
 def calcShannonEnt(dataSet):
     numEntries = len(dataSet)
@@ -126,6 +127,7 @@ def example():
     lensesLabels = ['ages', 'prescript', 'astigmatic', 'tearRate']
     lensesTree = createTree(lenses, lensesLabels)
     return lensesTree
+
 
 lensesTree = example()
 treePlot.createPlot(lensesTree)
