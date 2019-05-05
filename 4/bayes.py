@@ -87,7 +87,8 @@ def testingNB():
 # 读取训练文件
 def textParse(bigString):
     import re
-    listOfTokens = re.split('\\w*', bigString)
+    # 用*会报错 因为无法分割零空格
+    listOfTokens = re.split('\\W+', bigString)
     return [tok.lower() for tok in listOfTokens if len(tok) > 2]
 
 
