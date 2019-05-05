@@ -1,5 +1,5 @@
 # 随机梯度下降法　在下降中根据个体进行遍历　相对梯度下降中取整个矩阵进行权重计算时间上肯定更少
-#　但是相对的　通过个体进行迭代计算肯定更容易陷入局部最优中，图示结果中也可以看出
+# 　但是相对的　通过个体进行迭代计算肯定更容易陷入局部最优中，图示结果中也可以看出
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -14,6 +14,7 @@ def stocGradAscent0(dataMatrix, classLabel):
         error = classLabel[i] - h
         weight = weight + alpha * error * dataMatrix[i]
     return weight
+
 
 # 书上代码有误　没注意说明　plot的方法中由于weight的格式有更改，不是矩阵形式，因此getA应该改为tolist
 def plotBestFit(weight):
@@ -60,6 +61,26 @@ def sigmoid(inx):
     return 1.0 / (1 + np.exp(-inx))
 
 
+# 所谓的优化随机梯度下降法　实质上就是在进行梯度下降时进行随机个体计算error和权重
+# 类似遗传　蚁群　退火　之类的启发式算法　随机看脸～
+# 惊了　效果看起来和梯度下降法差不多　果然是500次大力出奇迹
+def stocGradAscen1(dataMatrix, classLabels):
+    numItem = 500
+    m, n = np.shape(dataMatrix)
+    weights = np.ones(n)
+    for i in range(numItem):
+        dataIndex = list(range(m))
+        for j in range(m):
+            alpha = 4 / (1.0 + j + i) + 0.01
+            randIndex = int(np.random.uniform(0, len(dataIndex)))
+            h = sigmoid(sum(dataMatrix[randIndex] * weights))
+            error = classLabels[randIndex] - h
+            weights = weights + alpha * error * dataMatrix[randIndex]
+            del (dataIndex[randIndex])
+    return weights
+
+
 dataArray, labelMat = loadDataSet()
-weights = stocGradAscent0(np.array(dataArray), labelMat)
+weights = stocGradAscen1(np.array(dataArray), labelMat)
+# weights = stocGradAscent0(np.array(dataArray), labelMat)
 plotBestFit(weights)
