@@ -6,7 +6,7 @@ def loadDataSet():
     dataMat = []
     labelMat = []
     fr = open('testSet.txt', 'r')
-    # 初始化参数读取和设置，x0取1
+    # 初始化参数读取和设置，x0取1 即直接对应常数项
     for line in fr.readlines():
         lineArr = line.strip().split()
         dataMat.append([1.0, float(lineArr[0]), float(lineArr[1])])
@@ -67,4 +67,3 @@ dataArr, labelMat = loadDataSet()
 weights = gradAscent(dataArr, labelMat)
 print(weights)
 plotBestFit(weights)
-
